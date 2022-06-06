@@ -1,12 +1,18 @@
 package com.managing.manageProjectApi.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -27,10 +33,21 @@ public class Projet {
 	@Nullable
 	private String description;
 	
-	@Column(name="dateCreation", nullable = false, length = 255)
+	@Column(name="dateCreation", nullable = false)
 	@NotNull
 	private Date dateCreation;
 	
+	@Column(name="dateCreation", nullable = false)
+	@NotNull
+	private Date dateMiseAjour;	
 	
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.EAGER
+			)
+	@JoinColumn(name="featureId", nullable = true)
+	@Nullable
+	private List<Feature> features = new ArrayList<Feature>();
 
 }
